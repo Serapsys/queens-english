@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import { getTriviaData } from "../../hooks/trivia.hooks";
 import useGetRequest from "../../queries/getRequest.query";
 import * as Yup from "yup";
@@ -9,11 +9,10 @@ import OptionBox from "../../components/OptionBox/OptionBox";
 import { useQueryClient } from "react-query";
 
 const TriviaGame = (props: any) => {
-  const { isLoading, isError, data, error } = useGetRequest(
+  const { isLoading, data} = useGetRequest(
     "triviaData",
     getTriviaData
   );
-  const [open, setopen] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -22,7 +21,7 @@ const TriviaGame = (props: any) => {
   });
 
   const submitHandler = (values: TriviaGameValues) => {
-    if(values.email.toString() == sampleData?.email.toString()){
+    if(values.email.toString() === sampleData?.email.toString()){
     queryClient.invalidateQueries("triviaData");
     }
 
